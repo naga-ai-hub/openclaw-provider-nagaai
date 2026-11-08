@@ -1,0 +1,9 @@
+export const PROVIDER_ID = "nagaai";
+export const PROVIDER_LABEL = "NagaAI";
+export const BASE_URL = "https://api.naga.ac/v1";
+export const MODELS_URL = `${BASE_URL}/models`;
+export const API_KEY_ENV_VAR = "NAGA_API_KEY";
+export const DEFAULT_MODEL_ID = "anthropic/claude-sonnet-5.5";
+export const DEFAULT_MODEL_REF = `${PROVIDER_ID}/${DEFAULT_MODEL_ID}`;
+export const KEYS_URL = "https://naga.ac/dashboard/api-keys";
+export const DOCS_URL = "https://docs.naga.ac/integrations/agents/openclaw";
