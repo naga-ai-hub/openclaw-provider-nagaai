@@ -6,38 +6,19 @@ Sources: <https://docs.openclaw.ai/clawhub/publishing>, the provider scaffold of
 ClawHub is OpenClaw's plugin registry; npm is not involved. The package scope
 `@nagaai` must match the ClawHub publisher `nagaai`.
 
-## One-time setup
+## Releases
 
-1. Public repository `naga-ai-hub/openclaw-provider-nagaai`, default branch `main`.
-2. Sign in to <https://clawhub.ai> with GitHub and create the publisher
-   `nagaai` (display name "NagaAI"). If the handle is taken, rename the package
-   in `name` and `openclaw.install.clawhubSpec` of `package.json` and `owner`
-   in `.github/workflows/clawhub-publish.yml`; a test fails if the two names in
-   `package.json` differ.
-3. Create a ClawHub API token for `nagaai` and store it as the repository
-   secret `CLAWHUB_TOKEN`.
+The package `@nagaai/openclaw-provider` belongs to the ClawHub publisher
+`nagaai`. Its trusted publisher is this repository with
+`.github/workflows/clawhub-publish.yml`, so releases need no stored token.
 
-## First release
-
-Actions → ClawHub Publish → Run workflow with `dry_run = true`. In the output
-check the name `@nagaai/openclaw-provider`, version `0.1.0`, family
-`code-plugin` and the source repository. Then run it again with
-`dry_run = false`. The `Build and pack` job runs the checks and packs `dist/`; the publish job
-returns after ClawHub's security checks
-publish the release or reject it.
-
-## Later releases
-
-After the first release, switch to trusted publishing and delete the token:
-
-```bash
-clawhub package trusted-publisher set @nagaai/openclaw-provider \
-  --repository naga-ai-hub/openclaw-provider-nagaai \
-  --workflow-filename clawhub-publish.yml
-```
-
-Bump the version with `npm version <patch|minor|major>` (it also has to match
-`version` in `openclaw.plugin.json`), merge, and run the workflow again.
+1. Bump the version with `npm version <patch|minor|major>` and set the same
+   `version` in `openclaw.plugin.json` (a test checks they match). Merge.
+2. Actions → ClawHub Publish → Run workflow with `dry_run = true`. Check the
+   name, version, family `code-plugin` and the source commit in the output.
+3. Run it again with `dry_run = false`. The `Build and pack` job runs the
+   checks and packs `dist/`; ClawHub holds the release until its security
+   checks pass.
 
 ## Check the install
 
