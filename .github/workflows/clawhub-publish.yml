@@ -3,8 +3,8 @@ name: ClawHub Publish
 # The workflow `openclaw plugins init --type provider` generates (OpenClaw 2026.11.2),
 # plus a build job: the package ships compiled `dist/`, which is not in git, so the
 # reusable workflow publishes the `npm pack` tarball (`package_artifact_name`).
-# The first release needs the CLAWHUB_TOKEN secret; later releases use trusted
-# publishing (OIDC) once `clawhub package trusted-publisher set` names this file.
+# Releases use ClawHub trusted publishing (GitHub OIDC): the package's trusted
+# publisher names this repository and this file, so no token is stored.
 on:
   workflow_dispatch:
     inputs:
@@ -55,5 +55,3 @@ jobs:
       dry_run: ${{ inputs.dry_run }}
       owner: nagaai
       package_artifact_name: clawhub-package
-    secrets:
-      clawhub_token: ${{ secrets.CLAWHUB_TOKEN }}
